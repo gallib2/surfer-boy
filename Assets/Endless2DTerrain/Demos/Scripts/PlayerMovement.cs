@@ -40,17 +40,17 @@ public class PlayerMovement : MonoBehaviour
             }
            
         }
-        if (Input.GetMouseButtonDown(0) && !Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButton(0) /*&& !Input.GetMouseButtonUp(0)*/)
         {
             Debug.Log("GetMouseButtonDown ");
-            if(speed < 24.0f)
+            if(speed < 100.0f)
             {
                 speed += 1;
             }
         }
-        else if(Input.GetMouseButtonUp(0))
+        else if(speed > 12)
         {
-            speed = 12f;
+            speed -= 1;
         }
         moveDirection.y -= gravity * Time.smoothDeltaTime;
         controller.Move(moveDirection * Time.smoothDeltaTime);

@@ -8,11 +8,14 @@ namespace Endless2DTerrain
     public class TerrainPiece
     {
         private Settings settings { get; set; }
+        private MeshCollider meshCollider { get; set; }
+        private TerrainCollider terrainCollider { get; set; }
 
         public TerrainPiece(Settings s)
         {
             settings = s;
             MeshPieces = new List<MeshPiece>();
+            //MeshCollider meshCollider = this
         }
 
         //Just for reference
@@ -87,10 +90,21 @@ namespace Endless2DTerrain
 			if (mp.MeshObject != null){
 				
                 //Create a placeholder object for our mesh pieces
-				InstantiateTerrainObject();	
-			
+				InstantiateTerrainObject();
+
+                //if (meshCollider == null) { 
+                //    meshCollider = TerrainObject.AddComponent<MeshCollider>();
+                //    meshCollider.convex = true;
+                //}
+
+                if(terrainCollider == null)
+                {
+                    terrainCollider = TerrainObject.AddComponent<TerrainCollider>();
+                    terrainCollider.material = new PhysicMaterial();
+                }
+
                 //And add the front plane mesh piece to our list of meshes in the terrain piece
-			  	MeshPieces.Add(mp);
+                MeshPieces.Add(mp);
 
 
                 if (settings.DrawDetailMeshRenderer)

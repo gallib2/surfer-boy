@@ -77,7 +77,7 @@ namespace Endless2DTerrain
             {
                 //Generate our next terrain
                 currentTerrain = GenerateTerrainPiece(currentTerrain, currentTerrain.NextTerrainOrigin);
-
+                //(currentTerrain as GameObject).AddComponent(Mesh);
                 //Can't generate any more terrain?  Break out
                 if (currentTerrain == null)
                 {

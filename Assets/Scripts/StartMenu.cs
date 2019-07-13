@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
-    private readonly int gameOverScreenIndex = 0;
+    private readonly int gameOverScreenIndex = 2;
     private readonly int StartScreenIndex = 1;
 
     public void Play()
@@ -13,7 +13,7 @@ public class StartMenu : MonoBehaviour
         int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
         if (SceneManager.GetActiveScene().buildIndex == gameOverScreenIndex)
         {
-            nextScene += 1;
+            nextScene = 1;
         }
         SceneManager.LoadScene(nextScene);
     }

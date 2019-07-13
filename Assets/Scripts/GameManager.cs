@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         // timerManager.DoSlowMotion();
         // yield return new WaitForSeconds(1);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2);
     }
 
     void GameOver()

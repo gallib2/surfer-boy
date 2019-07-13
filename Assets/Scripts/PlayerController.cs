@@ -1,12 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public static event Action OnGameOver;
+
     public Camera playerCamera;
     public GameObject surferHightLimitCollider;
     public GameObject cameraLimitCollider;
+
+    public SpriteRenderer surferSpriteRenderer;
 
     public float speed = 10.0f;
     public float maxSpeed = 600.0f;
@@ -44,6 +50,20 @@ public class PlayerController : MonoBehaviour
     {
         SetFollowingObjectPosition();
         SetCameraSize();
+        CheckIfGameOver();
+    }
+
+    private void CheckIfGameOver()
+    {
+        bool isFlip = surferSpriteRenderer.flipX || surferSpriteRenderer.flipY;
+
+
+        if(grounded && isFlip)
+        {
+            OnGameOver?.Invoke();
+            // game over
+            // freeze for some seconds and move to game over screen
+        }
     }
 
     void FixedUpdate()

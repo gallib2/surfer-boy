@@ -329,7 +329,10 @@ namespace Endless2DTerrain
             else
             {
                 if (meshRenderer == null) { meshRenderer = MeshObject.AddComponent<MeshRenderer>(); }
-                if (meshCollider == null) { meshCollider = MeshObject.AddComponent<MeshCollider>(); }
+                if (meshCollider == null) { 
+                    meshCollider = MeshObject.AddComponent<MeshCollider>();
+                    meshCollider.material = new PhysicMaterial();
+                }
             }
 			
 			GameObject.DestroyImmediate(meshFilter.sharedMesh);

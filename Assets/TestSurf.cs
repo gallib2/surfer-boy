@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class TestSurf : MonoBehaviour
 {
+    public bool toStopRotate;
+
     Quaternion rotation;
+
     void Awake()
     {
         rotation = transform.rotation;
     }
+
     void LateUpdate()
     {
-        transform.rotation = rotation;
+        //if(toStopRotate)
+        //{
+        //    transform.rotation = rotation;
+        //}
     }
 }

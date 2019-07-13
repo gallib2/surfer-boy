@@ -1531,9 +1531,7 @@ GameObject:
   - component: {fileID: 526158267}
   - component: {fileID: 526158266}
   - component: {fileID: 526158265}
-  - component: {fileID: 526158264}
   - component: {fileID: 526158269}
-  - component: {fileID: 526158270}
   - component: {fileID: 526158271}
   m_Layer: 0
   m_Name: surfer_Sphere
@@ -1542,21 +1540,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &526158264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 526158263}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 309f6a10de75f4ade82eddb197b48767, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCamera: {fileID: 989115566}
-  surferHightLimitCollider: {fileID: 1166045917}
-  rb: {fileID: 526158269}
 --- !u!135 &526158265
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1646,25 +1629,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 2
---- !u!95 &526158270
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 526158263}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 98dd3d642bbd54900a239cd285acbee5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &526158271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1681,11 +1645,14 @@ MonoBehaviour:
   surferHightLimitCollider: {fileID: 1166045917}
   cameraLimitCollider: {fileID: 777007939}
   speed: 50
+  maxSpeed: 600
   gravity: 10
   maxVelocityChange: 50
   canJump: 1
   jumpHeight: 2
-  rigidbody: {fileID: 0}
+  rb: {fileID: 0}
+  cameraZoomOutSizeTarget: 90
+  cameraZoomInSizeTarget: 56
 --- !u!1 &643075775
 GameObject:
   m_ObjectHideFlags: 0
@@ -2617,6 +2584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b0a81b6c2464902ab51a5d3cbfc34c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toStopRotate: 0
 --- !u!4 &1056910666
 Transform:
   m_ObjectHideFlags: 0
@@ -3450,6 +3418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b0a81b6c2464902ab51a5d3cbfc34c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toStopRotate: 0
 --- !u!95 &1393912749
 Animator:
   serializedVersion: 3

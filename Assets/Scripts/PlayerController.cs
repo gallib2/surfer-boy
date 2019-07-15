@@ -106,10 +106,10 @@ public class PlayerController : MonoBehaviour
                 speed += 1;
             }
         }
-        else if (!Input.GetMouseButton(0) && grounded)
+        else if (!Input.GetMouseButton(0) && grounded) //NOTE: the slowdown feels too sudden. see if its possible make gradual slowdown, and make it faster on upward slopes (hard)
         {
             speed = 20;
-        }
+        }//NOTE 2: possible bug here, sometimes when you let go of the mouse midair you slowdown to 20 immidiatly. maybe "grounded" is not updated correctly
 
         // We apply gravity manually for more tuning control
         rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));

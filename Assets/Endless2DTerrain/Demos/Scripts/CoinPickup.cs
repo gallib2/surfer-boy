@@ -10,6 +10,7 @@ public class CoinPickup : MonoBehaviour {
         var terrainDisplayer = GameObject.FindObjectOfType(typeof(TerrainDisplayer)) as TerrainDisplayer;        
         if (terrainDisplayer != null && terrainDisplayer.PrefabManager != null && terrainDisplayer.PrefabManager.Pool != null)
         {
+            Scoring.Instance.ScorePickup();
             terrainDisplayer.PrefabManager.Pool.Remove(this.gameObject);
         }
     }

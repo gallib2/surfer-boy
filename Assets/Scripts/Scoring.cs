@@ -54,11 +54,6 @@ public class Scoring : MonoBehaviour
     void ScoreOverTime()
     {
         SetScore(score_per_second);
-        //int new_score = score;
-        //int score_calculated = score_per_second * multiplier;
-        //new_score += score_calculated;
-        //score = new_score;
-        //scoretxt.text = "Score: " + score;
     }
 
     void IncreaseMultiplier()
@@ -72,11 +67,6 @@ public class Scoring : MonoBehaviour
     public void ScorePickup()
     {
         SetScore(pickup_score);
-        //int new_score = score;
-        //int score_calculated = pickup_score * multiplier;
-        //new_score += score_calculated;
-        //score = new_score;
-        //scoretxt.text = "Score: " + score;
     }
 
     private void ScoreOnFlip(bool isFlip)
@@ -103,7 +93,7 @@ public class Scoring : MonoBehaviour
         int score_calculated = multiplierP * multiplier;
         new_score += score_calculated;
         score = new_score;
-        scoretxt.text = "Score: " + score;
+        scoretxt.text = score.ToString();
     }
 
     private void GameOver()

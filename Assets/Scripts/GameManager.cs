@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public TimerManager timerManager;
     public Camera mainCamera;
 
+    public static string playerName;
+
     private void OnEnable()
     {
         PlayerController.OnGameOver += GameOver;
@@ -40,11 +42,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         // timerManager.DoSlowMotion();
         // yield return new WaitForSeconds(1);
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(StartMenu.gameOverScreenIndex);
     }
 
     void GameOver()
     {
+        Highscores.AddNewHighScore(playerName, Scoring.PlayerHighscore);
         StartCoroutine(LoadGameOverAfterSeconds());
         //timerManager.DoSlowMotion();
     }

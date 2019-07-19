@@ -72,9 +72,12 @@ public class PlayerController : MonoBehaviour
         grounded = false;
     }
 
-    void OnCollisionStay()
+    void OnCollisionStay(Collision collision)
     {
-        grounded = true;
+        if(collision.gameObject.tag != "cameraCollider" && collision.gameObject.tag != "LimitCollider")
+        {
+            grounded = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

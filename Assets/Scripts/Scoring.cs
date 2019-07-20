@@ -45,12 +45,22 @@ public class Scoring : MonoBehaviour
     {
         PlayerController.OnGameOver += GameOver;
         Fliper.OnFlips += ScoreOnFlip;
+        CoinPickup.OnCoinPicked += CoinPicked;
     }
 
     private void OnDisable()
     {
         PlayerController.OnGameOver -= GameOver;
         Fliper.OnFlips -= ScoreOnFlip;
+        CoinPickup.OnCoinPicked -= CoinPicked;
+    }
+
+    private void Update()
+    {
+        //if (!scoreAnimation.GetCurrentAnimatorStateInfo(0).IsName("ScoreAnim"))
+        //{
+        //    scoreAnimation.SetBool("isFlip", false);
+        //}
     }
 
     void ScoreOverTime()
@@ -69,6 +79,12 @@ public class Scoring : MonoBehaviour
     public void ScorePickup()
     {
         SetScore(pickup_score);
+    }
+
+    private void CoinPicked(bool isPicked)
+    {
+        Debug.Log("CoinPicked: " + isPicked);
+        scoreAnimation.SetBool("isFlip", isPicked);
     }
 
     private void ScoreOnFlip(bool isFlip)

@@ -7,6 +7,7 @@ public class Scoring : MonoBehaviour
 {
     public static Scoring Instance { get; private set; } //Singleton
     public static int PlayerHighscore { get; private set; }
+    public static int PlayerScore { get; private set; }
 
     public int score = 0;
     int multiplier = 0;
@@ -37,6 +38,7 @@ public class Scoring : MonoBehaviour
     {
         InvokeRepeating("ScoreOverTime", 0.0f, 1.0f);
         InvokeRepeating("IncreaseMultiplier", 0.0f, 20.0f);
+        PlayerHighscore = 0;
     }
 
     private void OnEnable()
@@ -93,6 +95,7 @@ public class Scoring : MonoBehaviour
         int score_calculated = multiplierP * multiplier;
         new_score += score_calculated;
         score = new_score;
+        PlayerHighscore = score;
         scoretxt.text = score.ToString();
     }
 

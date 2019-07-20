@@ -7,6 +7,7 @@ public class Scoring : MonoBehaviour
 {
     public static Scoring Instance { get; private set; } //Singleton
     public static int PlayerHighscore { get; private set; }
+    public static int PlayerScore { get; private set; }
 
     public int score = 0;
     int multiplier = 0;
@@ -37,28 +38,34 @@ public class Scoring : MonoBehaviour
     {
         InvokeRepeating("ScoreOverTime", 0.0f, 1.0f);
         InvokeRepeating("IncreaseMultiplier", 0.0f, 20.0f);
+        PlayerHighscore = 0;
     }
 
     private void OnEnable()
     {
         PlayerController.OnGameOver += GameOver;
         Fliper.OnFlips += ScoreOnFlip;
+        CoinPickup.OnCoinPicked += CoinPicked;
     }
 
     private void OnDisable()
     {
         PlayerController.OnGameOver -= GameOver;
         Fliper.OnFlips -= ScoreOnFlip;
+        CoinPickup.OnCoinPicked -= CoinPicked;
+    }
+
+    private void Update()
+    {
+        //if (!scoreAnimation.GetCurrentAnimatorStateInfo(0).IsName("ScoreAnim"))
+        //{
+        //    scoreAnimation.SetBool("isFlip", false);
+        //}
     }
 
     void ScoreOverTime()
     {
         SetScore(score_per_second);
-        //int new_score = score;
-        //int score_calculated = score_per_second * multiplier;
-        //new_score += score_calculated;
-        //score = new_score;
-        //scoretxt.text = "Score: " + score;
     }
 
     void IncreaseMultiplier()
@@ -72,11 +79,12 @@ public class Scoring : MonoBehaviour
     public void ScorePickup()
     {
         SetScore(pickup_score);
-        //int new_score = score;
-        //int score_calculated = pickup_score * multiplier;
-        //new_score += score_calculated;
-        //score = new_score;
-        //scoretxt.text = "Score: " + score;
+    }
+
+    private void CoinPicked(bool isPicked)
+    {
+        Debug.Log("CoinPicked: " + isPicked);
+        scoreAnimation.SetBool("isFlip", isPicked);
     }
 
     private void ScoreOnFlip(bool isFlip)
@@ -103,7 +111,8 @@ public class Scoring : MonoBehaviour
         int score_calculated = multiplierP * multiplier;
         new_score += score_calculated;
         score = new_score;
-        scoretxt.text = "Score: " + score;
+        PlayerHighscore = score;
+        scoretxt.text = score.ToString();
     }
 
     private void GameOver()

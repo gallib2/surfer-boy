@@ -1,12 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public static event Action OnGameOver;
+
     public Camera playerCamera;
     public GameObject surferHightLimitCollider;
     public GameObject cameraLimitCollider;
+
+    public SpriteRenderer surferSpriteRenderer;
 
     public float speed = 10.0f;
     public float maxSpeed = 600.0f;
@@ -44,6 +50,20 @@ public class PlayerController : MonoBehaviour
     {
         SetFollowingObjectPosition();
         SetCameraSize();
+        CheckIfGameOver();
+    }
+
+    private void CheckIfGameOver()
+    {
+        bool isFlip = surferSpriteRenderer.flipX || surferSpriteRenderer.flipY;
+
+
+        if(grounded && isFlip)
+        {
+            OnGameOver?.Invoke();
+            // game over
+            // freeze for some seconds and move to game over screen
+        }
     }
 
     void FixedUpdate()
@@ -52,9 +72,12 @@ public class PlayerController : MonoBehaviour
         grounded = false;
     }
 
-    void OnCollisionStay()
+    void OnCollisionStay(Collision collision)
     {
-        grounded = true;
+        if(collision.gameObject.tag != "cameraCollider" && collision.gameObject.tag != "LimitCollider")
+        {
+            grounded = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -86,10 +109,10 @@ public class PlayerController : MonoBehaviour
                 speed += 1;
             }
         }
-        else if (!Input.GetMouseButton(0) && grounded)
+        else if (!Input.GetMouseButton(0) && grounded) //NOTE: the slowdown feels too sudden. see if its possible make gradual slowdown, and make it faster on upward slopes (hard)
         {
             speed = 20;
-        }
+        }//NOTE 2: possible bug here, sometimes when you let go of the mouse midair you slowdown to 20 immidiatly. maybe "grounded" is not updated correctly
 
         // We apply gravity manually for more tuning control
         rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));

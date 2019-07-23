@@ -40,7 +40,6 @@ public class CoinPickup : MonoBehaviour {
 
         if(Mathf.Approximately(transform.position.y, target.position.y))
         {
-            Debug.Log("in the if: ");
             OnCoinPicked?.Invoke(false);
             //var terrainDisplayer = GameObject.FindObjectOfType(typeof(TerrainDisplayer)) as TerrainDisplayer;
             startMove = false;

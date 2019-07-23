@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public bool canJump = true;
     public float jumpHeight = 2.0f;
     private bool grounded = false;
+    Vector3 lastLocalVelocity;
 
     public Rigidbody rb;
 
@@ -33,12 +34,13 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
-        rb.useGravity = false;
+        //rb.freezeRotation = true;
+        //rb.useGravity = false;
     }
 
     private void Start()
     {
+        lastLocalVelocity = transform.InverseTransformDirection(rb.velocity);
         if (playerCamera == null)
         {
             playerCamera = Camera.main;
@@ -71,6 +73,10 @@ public class PlayerController : MonoBehaviour
     {
         PlayerMovement();
         grounded = false;
+        //var vel = rb.velocity;
+        //vel.x *= 1.0f - 0.3f; // reduce x component...
+        //rb.velocity = vel;
+
     }
 
     void OnCollisionStay(Collision collision)
@@ -89,34 +95,64 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     void PlayerMovement()
     {
-        Vector3 targetVelocity = new Vector3(1, -1, 2);
-        targetVelocity = transform.TransformDirection(targetVelocity);
-        targetVelocity *= speed;
+        Vector3 currentLocalVelocity = transform.InverseTransformDirection(rb.velocity); //Save the current location of the player
 
-        // Apply a force that attempts to reach our target velocity
-        Vector3 velocity = rb.velocity;
-        Vector3 velocityChange = (targetVelocity - velocity);
-        velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
-        velocityChange.z = 2;
-        velocityChange.y = -1;
-        rb.AddForce(velocityChange, ForceMode.VelocityChange);
+        Vector3 ascendingGroundVelocity = new Vector3(70.0f, 2.0f); //ground speed (assuming player is going uphill)
+        Vector3 descendingGroundVelocity = new Vector3(70.0f, -2.0f); //ground speed (assuming player is going downhill)
+        Vector3 aerialVelocity = new Vector3(2.0f, -35.0f); //aerial speed
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && grounded == true) //If the player is holding while on ground
         {
-            if (speed < maxSpeed)
+            if ((currentLocalVelocity.y - lastLocalVelocity.y) > 0) //and if the player is going up (comparing his Y now and before)
             {
-                speed += 1;
+                Debug.Log("Going UP!");
+                rb.AddForce(ascendingGroundVelocity); //apply force forward and up
+            }
+            else //and if the player is going down
+            {
+                Debug.Log("Going down!");
+                rb.AddForce(descendingGroundVelocity); //apply force forward and down
             }
         }
-        else if (!Input.GetMouseButton(0) && grounded) //NOTE: the slowdown feels too sudden. see if its possible make gradual slowdown, and make it faster on upward slopes (hard)
-        {
-            speed = 20;
-        }//NOTE 2: possible bug here, sometimes when you let go of the mouse midair you slowdown to 20 immidiatly. maybe "grounded" is not updated correctly
+        else if (Input.GetMouseButton(0) && grounded == false)
+        {           
+            rb.AddForce(aerialVelocity); //apply force down and forward
+        }
 
-        // We apply gravity manually for more tuning control
-        rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
+        lastLocalVelocity = currentLocalVelocity; //save last location 
+
+        //Vector3 targetVelocity = new Vector3(1, -1, 2);
+        //targetVelocity = transform.TransformDirection(targetVelocity);
+        //targetVelocity *= speed;
+
+        //Apply a force that attempts to reach our target velocity
+        //Vector3 velocity = rb.velocity;
+        //Vector3 velocityChange = (targetVelocity - velocity);
+        //velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
+        //velocityChange.z = 2;
+        //velocityChange.y = -1;
+        //rb.AddForce(velocityChange, ForceMode.VelocityChange);
+
+        //if (Input.GetMouseButton(0))
+        //{
+        //    if (speed < maxSpeed)
+        //    {
+        //        speed += 1;
+        //    }
+        //}
+        //else if (!Input.GetMouseButton(0) && grounded) //NOTE: the slowdown feels too sudden. see if its possible make gradual slowdown, and make it faster on upward slopes (hard)
+        //{
+        //    speed = 20;
+        //}//NOTE 2: possible bug here, sometimes when you let go of the mouse midair you slowdown to 20 immidiatly. maybe "grounded" is not updated correctly
+
+        //// We apply gravity manually for more tuning control
+
+        //rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
+
+
     }
 
     float CalculateJumpVerticalSpeed()

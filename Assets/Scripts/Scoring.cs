@@ -83,7 +83,6 @@ public class Scoring : MonoBehaviour
 
     private void CoinPicked(bool isPicked)
     {
-        Debug.Log("CoinPicked: " + isPicked);
         scoreAnimation.SetBool("isFlip", isPicked);
     }
 

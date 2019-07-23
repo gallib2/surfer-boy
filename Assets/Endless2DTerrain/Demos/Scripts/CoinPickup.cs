@@ -6,6 +6,9 @@ public class CoinPickup : MonoBehaviour {
     public delegate void CoinPicked(bool isPicked);
     public static event CoinPicked OnCoinPicked;
 
+    public AudioClip bottleSound;
+    private AudioSource audioSource;
+
     public int speed = 5;
     bool startMove = false;
 
@@ -18,6 +21,7 @@ public class CoinPickup : MonoBehaviour {
     {
         initialColor = GetComponent<MeshRenderer>().material.color;
         material = GetComponent<MeshRenderer>().material;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -59,6 +63,7 @@ public class CoinPickup : MonoBehaviour {
         {
             if (terrainDisplayer != null && terrainDisplayer.PrefabManager != null && terrainDisplayer.PrefabManager.Pool != null)
             {
+                audioSource.PlayOneShot(bottleSound);
                 Scoring.Instance.ScorePickup();
                 OnCoinPicked?.Invoke(true);
                 startMove = true;

@@ -5,10 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public AudioClip waterSplash;
+    private AudioSource audioSource;
     public TimerManager timerManager;
     public Camera mainCamera;
 
     public static string playerName;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+
+        audioSource.Play();
+    }
 
     private void OnEnable()
     {
@@ -33,6 +42,7 @@ public class GameManager : MonoBehaviour
         float pauseEndTime = Time.realtimeSinceStartup + 2;
         while (Time.realtimeSinceStartup < pauseEndTime)
         {
+            //audioSource.volume -= 0.01f;
             if (mainCamera.orthographicSize > 30)
             {
                 mainCamera.orthographicSize -= 1;
@@ -47,8 +57,18 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
+        //audioSource.PlayOneShot(waterSplash);
+        StartCoroutine(PlaySound());
         Highscores.AddNewHighScore(playerName, Scoring.PlayerHighscore);
         StartCoroutine(LoadGameOverAfterSeconds());
         //timerManager.DoSlowMotion();
     }
+
+    IEnumerator PlaySound()
+    {
+        audioSource.Stop();
+        audioSource.PlayOneShot(waterSplash);
+        yield return new WaitWhile(() => audioSource.isPlaying);
+    }
+
 }

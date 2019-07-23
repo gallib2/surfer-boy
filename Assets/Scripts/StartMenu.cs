@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class StartMenu : MonoBehaviour
 {
-    public static readonly int gameOverScreenIndex = 0;
+    public static readonly int gameOverScreenIndex = 2;
     private readonly int StartScreenIndex = 1;
     public InputField PlayerName;
 
@@ -15,7 +15,7 @@ public class StartMenu : MonoBehaviour
         int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
         if (SceneManager.GetActiveScene().buildIndex == gameOverScreenIndex)
         {
-            nextScene += 1;
+            nextScene = 1;
         } else
         {
             GameManager.playerName = PlayerName.text == string.Empty ? "Surfer" : PlayerName.text;

@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public Camera playerCamera;
     public GameObject surferHightLimitCollider;
     public GameObject cameraLimitCollider;
+    public Transform targetCoins;
 
     public SpriteRenderer surferSpriteRenderer;
 
@@ -155,7 +156,9 @@ public class PlayerController : MonoBehaviour
         float colliderYPosition = surferHightLimitCollider.transform.position.y;
         float colliderZPosition = surferHightLimitCollider.transform.position.z;
 
-        cameraLimitCollider.transform.position = surferHightLimitCollider.transform.position = new Vector3(playerXposition, colliderYPosition, colliderZPosition);
+        targetCoins.position = new Vector3(playerXposition -20 , 86.0f, 3);
+        cameraLimitCollider.transform.position = 
+            surferHightLimitCollider.transform.position = new Vector3(playerXposition, colliderYPosition, colliderZPosition);
 
         playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y + 10, playerCamera.transform.position.z);
     }

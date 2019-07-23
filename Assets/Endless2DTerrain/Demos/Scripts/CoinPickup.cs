@@ -58,7 +58,7 @@ public class CoinPickup : MonoBehaviour {
     {
         terrainDisplayer = GameObject.FindObjectOfType(typeof(TerrainDisplayer)) as TerrainDisplayer;
         //Assume only one terrain displayer at a time
-        if(item.name == "surfer_Sphere")
+        if(item.name == "Player")
         {
             if (terrainDisplayer != null && terrainDisplayer.PrefabManager != null && terrainDisplayer.PrefabManager.Pool != null)
             {

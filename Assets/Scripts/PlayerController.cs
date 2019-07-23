@@ -15,12 +15,12 @@ public class PlayerController : MonoBehaviour
 
     public SpriteRenderer surferSpriteRenderer;
 
-    public float speed = 10.0f;
-    public float maxSpeed = 600.0f;
-    public float gravity = 10.0f;
-    public float maxVelocityChange = 40.0f;
-    public bool canJump = true;
-    public float jumpHeight = 2.0f;
+    //public float speed = 10.0f;
+    //public float maxSpeed = 600.0f;
+    //public float gravity = 10.0f;
+    //public float maxVelocityChange = 40.0f;
+    //public bool canJump = true;
+    //public float jumpHeight = 2.0f;
     private bool grounded = false;
     Vector3 lastLocalVelocity;
 
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void PlayerMovement()
+    void PlayerMovement()/////////////////////////////////////////////////////// Where the magic happens
     {
         Vector3 currentLocalVelocity = transform.InverseTransformDirection(rb.velocity); //Save the current location of the player
 
@@ -155,12 +155,12 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    float CalculateJumpVerticalSpeed()
-    {
-        // From the jump height and gravity we deduce the upwards speed 
-        // for the character to reach at the apex.
-        return Mathf.Sqrt(2 * jumpHeight * gravity);
-    }
+    //float CalculateJumpVerticalSpeed()
+    //{
+    //    // From the jump height and gravity we deduce the upwards speed 
+    //    // for the character to reach at the apex.
+    //    return Mathf.Sqrt(2 * jumpHeight * gravity);
+    //}
 
     void SetCameraSize()
     {

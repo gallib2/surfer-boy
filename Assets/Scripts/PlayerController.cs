@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
     private void CheckIfGameOver()
     {
-        bool isFlip = surferSpriteRenderer.flipX || surferSpriteRenderer.flipY;
+        bool isFlip = surferSpriteRenderer.flipX || !surferSpriteRenderer.flipY;
 
 
         if(grounded && isFlip)

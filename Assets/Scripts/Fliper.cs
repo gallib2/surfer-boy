@@ -23,6 +23,6 @@ public class Fliper : MonoBehaviour
         bool isFlip = !spriteRenderer.flipY;
         OnFlips?.Invoke(isFlip);
 
-        spriteRenderer.flipY = !spriteRenderer.flipY;
+        spriteRenderer.flipY = isFlip;
     }
 }

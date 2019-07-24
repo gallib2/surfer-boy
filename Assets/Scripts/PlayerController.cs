@@ -99,27 +99,58 @@ public class PlayerController : MonoBehaviour
     void PlayerMovement()/////////////////////////////////////////////////////// Where the magic happens
     {
         Vector3 currentLocalVelocity = transform.InverseTransformDirection(rb.velocity); //Save the current location of the player
-
-        Vector3 ascendingGroundVelocity = new Vector3(70.0f, 2.0f); //ground speed (assuming player is going uphill)
-        Vector3 descendingGroundVelocity = new Vector3(70.0f, -2.0f); //ground speed (assuming player is going downhill)
+        float maxVelocity = 800.0f;
+        float baseVelocity = 80.0f;
+        float addVelocity = 10.0f;
+        float decreaseVelocity = 80.0f;
+        float currentVelocity = baseVelocity;
+        Vector3 ascendingGroundVelocity = new Vector3(baseVelocity, 5.0f); //ground speed (assuming player is going uphill)
+        Vector3 descendingGroundVelocity = new Vector3(baseVelocity, -2.0f); //ground speed (assuming player is going downhill)
         Vector3 aerialVelocity = new Vector3(2.0f, -35.0f); //aerial speed
+        Vector3 aerialVelocityGrounded = new Vector3(2.0f, -50.0f);
 
         if (Input.GetMouseButton(0) && grounded == true) //If the player is holding while on ground
         {
-            if ((currentLocalVelocity.y - lastLocalVelocity.y) > 0) //and if the player is going up (comparing his Y now and before)
+            if ((currentLocalVelocity.y - lastLocalVelocity.y) < 0) //and if the player is going up (comparing his Y now and before)
             {
-                Debug.Log("Going UP!");
+//                Debug.Log("Going UP!");
                 rb.AddForce(ascendingGroundVelocity); //apply force forward and up
+                while (currentVelocity < maxVelocity)
+                {
+                    currentVelocity += addVelocity;
+                    ascendingGroundVelocity[0] = currentVelocity;
+                }
             }
             else //and if the player is going down
             {
-                Debug.Log("Going down!");
+//                Debug.Log("Going down!");
                 rb.AddForce(descendingGroundVelocity); //apply force forward and down
+                while (currentVelocity < maxVelocity)
+                {
+                    currentVelocity += addVelocity;
+                    descendingGroundVelocity[0] = currentVelocity;
+                }
             }
         }
         else if (Input.GetMouseButton(0) && grounded == false)
         {           
             rb.AddForce(aerialVelocity); //apply force down and forward
+            while (currentVelocity < maxVelocity)
+            {
+                currentVelocity += addVelocity;
+                ascendingGroundVelocity[0] = currentVelocity;
+            }
+        }
+
+        if (grounded == false)
+        {
+            rb.AddForce(aerialVelocityGrounded);
+        }
+        
+        if (!Input.GetMouseButton(0))
+        {
+            currentVelocity -= decreaseVelocity;
+            Debug.Log(currentVelocity);
         }
 
         lastLocalVelocity = currentLocalVelocity; //save last location 

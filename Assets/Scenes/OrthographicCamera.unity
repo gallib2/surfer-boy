@@ -7920,7 +7920,7 @@ PhysicMaterial:
   m_Name: DynamicMaterial
   dynamicFriction: 0.6
   staticFriction: 0.6
-  bounciness: 0
+  bounciness: 0.5
   frictionCombine: 0
   bounceCombine: 0
 --- !u!1 &1946263869

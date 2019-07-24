@@ -99,14 +99,15 @@ public class PlayerController : MonoBehaviour
     void PlayerMovement()/////////////////////////////////////////////////////// Where the magic happens
     {
         Vector3 currentLocalVelocity = transform.InverseTransformDirection(rb.velocity); //Save the current location of the player
-        float maxVelocity = 800.0f;
-        float baseVelocity = 80.0f;
-        float addVelocity = 10.0f;
+        float maxVelocity = 1800.0f;
+        float baseVelocity = 240.0f;
+        float addVelocity = 80.0f;
+        float addVelocityDown = 120.0f;
         float decreaseVelocity = 80.0f;
         float currentVelocity = baseVelocity;
         Vector3 ascendingGroundVelocity = new Vector3(baseVelocity, 5.0f); //ground speed (assuming player is going uphill)
-        Vector3 descendingGroundVelocity = new Vector3(baseVelocity, -2.0f); //ground speed (assuming player is going downhill)
-        Vector3 aerialVelocity = new Vector3(2.0f, -35.0f); //aerial speed
+        Vector3 descendingGroundVelocity = new Vector3(baseVelocity, -10.0f); //ground speed (assuming player is going downhill)
+        Vector3 aerialVelocity = new Vector3(50.0f, -100.0f); //aerial speed
         Vector3 aerialVelocityGrounded = new Vector3(2.0f, -50.0f);
 
         if (Input.GetMouseButton(0) && grounded == true) //If the player is holding while on ground
@@ -127,7 +128,7 @@ public class PlayerController : MonoBehaviour
                 rb.AddForce(descendingGroundVelocity); //apply force forward and down
                 while (currentVelocity < maxVelocity)
                 {
-                    currentVelocity += addVelocity;
+                    currentVelocity += addVelocityDown;
                     descendingGroundVelocity[0] = currentVelocity;
                 }
             }
@@ -138,7 +139,7 @@ public class PlayerController : MonoBehaviour
             while (currentVelocity < maxVelocity)
             {
                 currentVelocity += addVelocity;
-                ascendingGroundVelocity[0] = currentVelocity;
+                descendingGroundVelocity[0] = currentVelocity;
             }
         }
 

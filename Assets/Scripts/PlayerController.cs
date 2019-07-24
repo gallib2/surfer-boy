@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
     private void CheckIfGameOver()
     {
-        bool isFlip = surferSpriteRenderer.flipX || surferSpriteRenderer.flipY;
+        bool isFlip = surferSpriteRenderer.flipX || !surferSpriteRenderer.flipY;
 
 
         if(grounded && isFlip)
@@ -200,7 +200,7 @@ public class PlayerController : MonoBehaviour
         {
             if (playerCamera.orthographicSize < cameraZoomOutSizeTarget)
             {
-                playerCamera.orthographicSize += 1;
+                playerCamera.orthographicSize += 3;
             }
         }
 
@@ -213,7 +213,7 @@ public class PlayerController : MonoBehaviour
         {
             if (playerCamera.orthographicSize > cameraZoomInSizeTarget)
             {
-                playerCamera.orthographicSize -= 1;
+                playerCamera.orthographicSize -= 3;
             }
         }
     }

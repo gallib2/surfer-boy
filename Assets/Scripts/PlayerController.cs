@@ -100,15 +100,15 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 currentLocalVelocity = transform.InverseTransformDirection(rb.velocity); //Save the current location of the player
         float maxVelocity = 1800.0f;
-        float baseVelocity = 240.0f;
-        float addVelocity = 80.0f;
+        float baseVelocity = 80.0f;
+        float addVelocity = 100.0f;
         float addVelocityDown = 120.0f;
         float decreaseVelocity = 80.0f;
         float currentVelocity = baseVelocity;
         Vector3 ascendingGroundVelocity = new Vector3(baseVelocity, 5.0f); //ground speed (assuming player is going uphill)
         Vector3 descendingGroundVelocity = new Vector3(baseVelocity, -10.0f); //ground speed (assuming player is going downhill)
         Vector3 aerialVelocity = new Vector3(50.0f, -100.0f); //aerial speed
-        Vector3 aerialVelocityGrounded = new Vector3(2.0f, -50.0f);
+        Vector3 aerialVelocityGrounded = new Vector3(2.0f, -55.0f);
 
         if (Input.GetMouseButton(0) && grounded == true) //If the player is holding while on ground
         {
@@ -151,7 +151,6 @@ public class PlayerController : MonoBehaviour
         if (!Input.GetMouseButton(0))
         {
             currentVelocity -= decreaseVelocity;
-            Debug.Log(currentVelocity);
         }
 
         lastLocalVelocity = currentLocalVelocity; //save last location 

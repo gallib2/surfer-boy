@@ -1,4 +1,4 @@
-# eco-surfer
+# Eco-Surfer
 
 Surf them waves as never before!
 With the echo surfer you'll face massive waves, as you collect bottles to save the world, flip in the air to earn more score and surf as fast as you can.. with style!

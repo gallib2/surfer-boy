@@ -13,4 +13,4 @@ There are flip abilities to increase your score while you surf.
 2. Open the project in Unity
 3. Have fun :)
 
-![](eco-surfer.gif)
+<img src="eco-surfer.gif" width="250" height="400"/>
